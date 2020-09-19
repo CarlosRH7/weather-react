@@ -1,24 +1,27 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import WeatherExtarInfo from './WeatherExtraInfo'
 import WeatherTemperature from './WeatherTemperature'
-import {
-    CLOUD,
-    CLOUDY,  
-    SUN,
-    RAIN, 
-    SNOW,
-    WINDY,
-} from '../../../constants/weathers';
+import './styles.css'
 
 
+// Doble destructuracion
+const WeatherData = ({data: {tempeture, weatherState, humidity, wind}}) => {
 
-const WeatherData = () => (
-    <div>
-        <WeatherTemperature tempeture={20} weatherState={SUN}/>
-        <WeatherExtarInfo humidity={80} wind={"10 m/s"}/>
+    return (<div className="weatherDataCont">
+                <WeatherTemperature tempeture={tempeture} weatherState={weatherState}/>
+                <WeatherExtarInfo humidity={humidity} wind={wind}/>
+            </div>)
+}
 
-    </div>
-)
+WeatherData.propTypes = {
+    data: PropTypes.shape({
+        tempeture: PropTypes.number.isRequired,
+        weatherState: PropTypes.string.isRequired,
+        humidity: PropTypes.number.isRequired,
+        wind: PropTypes.string.isRequired,
+    })
+}
 
 
 export default WeatherData
